@@ -7,7 +7,7 @@ The API uses caching to efficiently handle large numbers of requests without ris
 2.Open the solution in Visual Studio 2022.
 3.Build the project to resolve dependencies.
 4.Press the "Start" button in Visual Studio to run the API locally.
-5.The API should be accessible at https://localhost:<port>/api/BestStories/{n}, where {n} is the number of best stories you want to retrieve. 
+5.The API should be accessible at https://localhost:<port>/api/BestStories/{n}, where {n} is the number of best stories we want to retrieve. 
 **Endpoints**: 
 GET /api/BestStories/{n} - Retrieves the first n "best stories" from the HackerNews API sorted by their score in descending order. 
 **Assumptions**: 
