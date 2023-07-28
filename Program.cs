@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using WebApplication2.Controllers;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,12 +26,10 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 
-
-app.MapGet("/api/BestStories/{n:int}", async (int n) =>
+app.MapGet("/api/BestStories/{n}", async (int n) =>
 {
     if (!memoryCache.TryGetValue("BestStories", out List<BestStory> bestStories))
     {
-        
         string bestStoriesUri = "https://hacker-news.firebaseio.com/v0/beststories.json";
         string bestStoriesJson = await httpClient.GetStringAsync(bestStoriesUri);
         int[] bestStoryIds = JsonConvert.DeserializeObject<int[]>(bestStoriesJson);
@@ -57,15 +55,17 @@ app.MapGet("/api/BestStories/{n:int}", async (int n) =>
             bestStories.Add(bestStory);
         }
 
-        // Caching the best stories for 5 minutes
+        // Sorting the best stories by score in descending order
+        bestStories = bestStories.OrderByDescending(s => s.Score).ToList();
+
+        // Caching the sorted best stories for 5 minutes
         memoryCache.Set("BestStories", bestStories, TimeSpan.FromMinutes(5));
     }
 
-    // Sorting the best stories by score in descending order
-    bestStories = bestStories.OrderByDescending(s => s.Score).ToList();
-
-    return Results.Json(bestStories.Take(n));
+    // Return the sorted list from the cache without taking n again.
+    return Results.Json(bestStories);
 });
+
 
 app.Run();
 
