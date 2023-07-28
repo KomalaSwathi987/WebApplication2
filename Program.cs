@@ -10,17 +10,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddMemoryCache();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
-
 var httpClient = new HttpClient();
-
 var memoryCache = app.Services.GetRequiredService<IMemoryCache>();
 app.UseSwagger();
 app.UseSwaggerUI();
