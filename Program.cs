@@ -23,7 +23,7 @@ app.UseSwaggerUI();
 
 app.MapGet("/api/BestStories/{n}", async (int n) =>
 {
-    if (!memoryCache.TryGetValue("BestStories", out List<BestStory> bestStories))
+    if (!memoryCache.TryGetValue($"BestStories_{n}", out List<BestStory> bestStories))
     {
         string bestStoriesUri = "https://hacker-news.firebaseio.com/v0/beststories.json";
         string bestStoriesJson = await httpClient.GetStringAsync(bestStoriesUri);
@@ -54,7 +54,7 @@ app.MapGet("/api/BestStories/{n}", async (int n) =>
         bestStories = bestStories.OrderByDescending(s => s.Score).ToList();
 
         // Caching the sorted best stories for 5 minutes
-        memoryCache.Set("BestStories", bestStories, TimeSpan.FromMinutes(5));
+        memoryCache.Set($"BestStories_{n}", bestStories, TimeSpan.FromMinutes(5));
     }
 
     // Return the sorted list from the cache without taking n again.
