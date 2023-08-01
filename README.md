@@ -21,12 +21,12 @@ To run the application locally, follow these steps:
 3. The API uses an in-memory cache (provided by MemoryCache) to store the fetched best stories. The cache is set to expire after 5 minutes. 
 
 ## Enhancements and Changes
-1.Implement proper error handling and error responses to provide better feedback to clients. 
-2.Add unit tests to verify the functionality of the API and ensure robustness. 
-3.Implement API versioning to allow for future backward compatibility with breaking changes. 
-4.Add logging to track API usage and identify potential issues. 
-5.Add authentication and authorization to secure the API if necessary. 
-6.Implement paging support to allow clients to fetch stories in batches.
+1. Implement proper error handling and error responses to provide better feedback to clients. 
+2. Add unit tests to verify the functionality of the API and ensure robustness. 
+3. Implement API versioning to allow for future backward compatibility with breaking changes. 
+4. Add logging to track API usage and identify potential issues. 
+5. Add authentication and authorization to secure the API if necessary. 
+6. Implement paging support to allow clients to fetch stories in batches.
 
 ## API Endpoint
 The API provides the following endpoint:
